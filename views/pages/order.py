@@ -9,7 +9,6 @@ import json
 
 selected = sidebar_order()
 if selected == '登録':
-    st.title('注文書登録')
     with st.form(key='order_create'):
         order_name = st.text_input('注文書名')
         submit = st.form_submit_button(label='登録')
