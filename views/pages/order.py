@@ -6,6 +6,7 @@ sys.dont_write_bytecode = True
 sys.path.append(os.path.abspath(".."))
 from dashboard.sidebar import sidebar_order
 import json
+# import views.dashboard
 
 selected = sidebar_order()
 if selected == '登録':

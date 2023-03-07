@@ -6,7 +6,7 @@ sys.dont_write_bytecode = True
 sys.path.append(os.path.abspath(".."))
 import models
 from config.database import SessionLocal, engine
-import cruds.order_crud as cr_order
+import cruds.rakumart_purchase_order as crud_rpo
 import schemas
 models.Base.metadata.create_all(bind=engine)
 
@@ -20,8 +20,7 @@ def get_db():
     finally:
         db.close()
 
-
-@app.post("/create/order")
-async def create_order(order: schemas.OrderCreate, db: Session = Depends(get_db)):
-    return cr_order.create_order(db=db, order=order)
+@app.post("/rakumart/order", response_model=schemas.PurchaseOrder)
+async def create_rakumart_purchase_order(purchase_order: schemas.PurchaseOrderCreate, db: Session = Depends(get_db)):
+    return crud_rpo.create_purchase_order(db=db, purchase_order=purchase_order)
 
