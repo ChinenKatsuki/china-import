@@ -14,7 +14,7 @@ class PurchaseOrderCreate(BaseModel):
     order_product_total_price: Optional[int] = None
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    deleted_at: Optional[datetime.datetime] = None
+    is_deleted: Optional[str] = None
 
 class PurchaseOrder(PurchaseOrderCreate):
     purchase_order_id: int

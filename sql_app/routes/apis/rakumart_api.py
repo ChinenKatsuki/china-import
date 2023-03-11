@@ -17,10 +17,14 @@ router = APIRouter(
     tags=["rakumart"],
 )
 
+@router.get("/order", response_model=List[schemas.PurchaseOrder])
+async def read_rakumart_purchase_order(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    return crud_rpo.get_purchase_order(db, skip=skip, limit=limit)
+
 @router.post("/order", response_model=schemas.PurchaseOrder)
 async def create_rakumart_purchase_order(purchase_order: schemas.PurchaseOrderCreate, db: Session = Depends(get_db)):
     return crud_rpo.create_purchase_order(db, purchase_order=purchase_order)
 
-@router.get("/order", response_model=List[schemas.PurchaseOrder])
-async def read_rakumart_purchase_order(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    return crud_rpo.get_purchase_order(db, skip=skip, limit=limit)
+@router.delete("/delete/{purchase_order_id}")
+async def delete_rakumart_purchase_order(purchase_order_id: int, db: Session = Depends(get_db)):
+    return crud_rpo.delete_rakumart_purchase_order(db, purchase_order_id=purchase_order_id)
