@@ -25,6 +25,10 @@ async def read_rakumart_purchase_order(skip: int = 0, limit: int = 100, db: Sess
 async def create_rakumart_purchase_order(purchase_order: schemas.PurchaseOrderCreate, db: Session = Depends(get_db)):
     return crud_rpo.create_purchase_order(db, purchase_order=purchase_order)
 
-@router.delete("/delete/{purchase_order_id}")
+@router.put("/order/{purchase_order_id}")
+async def update_rakumart_purchase_order(purchase_order_id: int, request: schemas.PurchaseOrderPutRequest, db: Session = Depends(get_db)):
+    return crud_rpo.update_rakumart_purchase_order(db, purchase_order_id=purchase_order_id, request=request)
+
+@router.delete("/order/delete/{purchase_order_id}")
 async def delete_rakumart_purchase_order(purchase_order_id: int, db: Session = Depends(get_db)):
     return crud_rpo.delete_rakumart_purchase_order(db, purchase_order_id=purchase_order_id)

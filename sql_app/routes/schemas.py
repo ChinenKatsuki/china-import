@@ -16,6 +16,15 @@ class PurchaseOrderCreate(BaseModel):
     updated_at: datetime.datetime
     is_deleted: Optional[str] = None
 
+class PurchaseOrderPutRequest(BaseModel):
+    purchase_order_name: str = Field(max_length=100)
+    jpy_equivalent: Optional[int] = None
+    domestic_postage: Optional[int] = None
+    international_postage: Optional[int] = None
+    commision: Optional[float] = None
+    tariff: Optional[int] = None
+    order_product_total_price: Optional[int] = None
+
 class PurchaseOrder(PurchaseOrderCreate):
     purchase_order_id: int
     class Config:
