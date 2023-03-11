@@ -21,3 +21,6 @@ def create_purchase_order(db: Session, purchase_order: schemas.PurchaseOrderCrea
     db.commit()
     db.refresh(db_purchase_order)
     return db_purchase_order
+
+def get_purchase_order(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.RakumartOrderAllCost).offset(skip).limit(limit).all()
