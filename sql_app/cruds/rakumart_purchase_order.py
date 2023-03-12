@@ -5,12 +5,12 @@ import os
 sys.path.append(os.path.abspath(".."))
 sys.dont_write_bytecode = True
 import models
-import routes.schemas as schemas
+from routes.schemas.rakumart_purchase_order import PurchaseOrderCreate
 
 def get_purchase_order(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.RakumartOrderAllCost).filter(models.RakumartOrderAllCost.is_deleted == 'False').offset(skip).limit(limit).all()
 
-def create_purchase_order(db: Session, purchase_order: schemas.PurchaseOrderCreate):
+def create_purchase_order(db: Session, purchase_order: PurchaseOrderCreate):
     db_purchase_order = models.RakumartOrderAllCost(
         purchase_order_name=purchase_order.purchase_order_name,
         jpy_equivalent=purchase_order.jpy_equivalent,
