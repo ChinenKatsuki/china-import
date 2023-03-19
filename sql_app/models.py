@@ -37,6 +37,7 @@ class RakumartOrderAllCost(Base):
     __tabel_args__ = {'comment': 'ラクマート発注経費管理テーブル'}
 
     purchase_order_id = Column(Integer, primary_key=True, comment='注文書ID')
+    # user_id = Column(Integer, ForeignKey(User.user_id), comment='ユーザーID')
     purchase_order_name = Column(String(100), nullable=False, comment='注文書名')
     jpy_equivalent = Column(Integer, nullable=True, comment='1元日本円換算')
     domestic_postage = Column(Integer, nullable=True, comment='国内送料(日本円)')
@@ -54,7 +55,6 @@ class RakumartGoods(Base):
     __tablename__ = 'rakumart_goods'
     __tabel_args__ = {'comment': 'ラクマート商品管理トランザクションテーブル'}
 
-    # user_id = Column(Integer, ForeignKey(User.user_id), comment='ユーザーID')
     goods_id = Column(Integer, primary_key=True, comment='ラクマート商品管理ID')
     purchase_order_id = Column(Integer, ForeignKey(RakumartOrderAllCost.purchase_order_id), comment='注文書ID')
     good_name = Column(String(100), nullable=False, comment='ラクマート商品名')
@@ -64,6 +64,6 @@ class RakumartGoods(Base):
     rakumart_Dgoods_page_url = Column(Text, nullable=False, comment='ラクマート商品ページURL')
     created_at = Column(DateTime, default=datetime.datetime.now(), nullable=False, comment='作成日時')
     updated_at = Column(DateTime, default=datetime.datetime.now(), onupdate=datetime.datetime.now(), nullable=False, comment='更新日時')
-    deleted_at = Column(DateTime, nullable=True, comment='削除日時')
+    is_deleted = Column(String(10), default='False', comment='削除フラグ')
     rakumart_order_all_cost = relationship('RakumartOrderAllCost', back_populates=('rakumart_goods'))
     # user = relationship('User', back_populates='rakumart_goods')
