@@ -1,4 +1,4 @@
-#rakumart_order_all_cost
+#　rakumart_order_all_cost
 
 |  name                      |  date_type          |  length  |  pk    |  not_null |  default           |  comment        |
 | ---------------------------|---------------------|----------|--------|-----------|--------------------|-----------------|
