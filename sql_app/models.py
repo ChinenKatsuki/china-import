@@ -16,7 +16,7 @@ class User(Base):
     last_name_kana = Column(String(30), nullable=False, comment='カナ姓')
     created_at = Column(DateTime, default=datetime.datetime.now(), nullable=False, comment='作成日時')
     updated_at = Column(DateTime, default=datetime.datetime.now(), onupdate=datetime.datetime.now(), nullable=False, comment='更新日時')
-    deleted_at = Column(DateTime, nullable=True, default=NULL, comment='削除日時')
+    deleted_at = Column(DateTime, nullable=True, comment='削除日時')
     # auth = relationship('Auth', back_populates='auth')
     rakumart_order_all_cost = relationship('RakumartOrderAllCost', back_populates='user')
 
