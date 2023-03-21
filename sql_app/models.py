@@ -5,20 +5,20 @@ import datetime
 import sys
 sys.dont_write_bytecode = True
 
-# class User(Base):
-#     __tablename__ = 'user'
-#     __table_args__ = {'comment': 'アカウント情報を管理するトランザクションテーブル'}
+class User(Base):
+    __tablename__ = 'user'
+    __table_args__ = {'comment': 'アカウント情報を管理するトランザクションテーブル'}
 
-#     user_id = Column(Integer, primary_key=True, comment='ユーザーID')
-#     first_name = Column(String(50), nullable=False, comment='氏名(名)')
-#     last_name = Column(String(50), nullable=False, comment='氏名(姓)')
-#     first_name_kane = Column(String(50), nullable=False, comment='氏名(カナ)')
-#     last_name_kana = Column(String(50), nullable=False, comment='氏名(姓)')
-#     created_at = Column(DateTime, default=datetime.datetime.now(), nullable=False, comment='作成日時')
-#     updated_at = Column(DateTime, default=datetime.datetime.now(), onupdate=datetime.datetime.now(), nullable=False, comment='更新日時')
-#     deleted_at = Column(DateTime, nullble=True, comment='削除日時')
-#     auth = relationship('Auth', back_populates='auth')
-#     rakumart_goods = relationship('RakumartGoods', back_populates='rakumart_good')
+    user_id = Column(Integer, primary_key=True, comment='ユーザーID')
+    first_name = Column(String(20), nullable=False, comment='氏名(名)')
+    last_name = Column(String(20), nullable=False, comment='氏名(姓)')
+    first_name_kana = Column(String(30), nullable=False, comment='カナ名')
+    last_name_kana = Column(String(30), nullable=False, comment='カナ姓')
+    created_at = Column(DateTime, default=datetime.datetime.now(), nullable=False, comment='作成日時')
+    updated_at = Column(DateTime, default=datetime.datetime.now(), onupdate=datetime.datetime.now(), nullable=False, comment='更新日時')
+    deleted_at = Column(DateTime, nullable=True, default=NULL, comment='削除日時')
+    # auth = relationship('Auth', back_populates='auth')
+    rakumart_order_all_cost = relationship('RakumartOrderAllCost', back_populates='user')
 
 
 # class Auth(Base):
@@ -37,7 +37,7 @@ class RakumartOrderAllCost(Base):
     __tabel_args__ = {'comment': 'ラクマート発注経費管理テーブル'}
 
     purchase_order_id = Column(Integer, primary_key=True, comment='注文書ID')
-    # user_id = Column(Integer, ForeignKey(User.user_id), comment='ユーザーID')
+    user_id = Column(Integer, ForeignKey(User.user_id), comment='ユーザーID')
     purchase_order_name = Column(String(100), nullable=False, comment='注文書名')
     jpy_equivalent = Column(Integer, nullable=True, comment='1元日本円換算')
     domestic_postage = Column(Integer, nullable=True, comment='国内送料(日本円)')
@@ -49,6 +49,7 @@ class RakumartOrderAllCost(Base):
     updated_at = Column(DateTime, default=datetime.datetime.now(), onupdate=datetime.datetime.now(), nullable=False, comment='更新日時')
     is_deleted = Column(String(10), default='False', comment='削除フラグ')
     rakumart_goods = relationship('RakumartGoods', back_populates='rakumart_order_all_cost')
+    user = relationship('User', back_populates='rakumart_order_all_cost')
 
 
 class RakumartGoods(Base):
@@ -66,4 +67,3 @@ class RakumartGoods(Base):
     updated_at = Column(DateTime, default=datetime.datetime.now(), onupdate=datetime.datetime.now(), nullable=False, comment='更新日時')
     is_deleted = Column(String(10), default='False', comment='削除フラグ')
     rakumart_order_all_cost = relationship('RakumartOrderAllCost', back_populates=('rakumart_goods'))
-    # user = relationship('User', back_populates='rakumart_goods')
