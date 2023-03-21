@@ -14,6 +14,7 @@ def get_purchase_order(db: Session, skip: int = 0, limit: int = 100):
 def create_purchase_order(db: Session, purchase_order: PurchaseOrderCreate):
     try:
         db_purchase_order = models.RakumartOrderAllCost(
+            user_id=purchase_order.user_id,
             purchase_order_name=purchase_order.purchase_order_name,
             jpy_equivalent=purchase_order.jpy_equivalent,
             domestic_postage=purchase_order.domestic_postage,

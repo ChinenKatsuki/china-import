@@ -5,20 +5,21 @@ import sys
 sys.dont_write_bytecode = True
 
 class PurchaseOrderCreate(BaseModel):
+    user_id: int
     purchase_order_name: str = Field(max_length=100)
     jpy_equivalent: Optional[int] = None
     domestic_postage: Optional[int] = None
     international_postage: Optional[int] = None
-    commision: Optional[float] = None
+    commision: Optional[int] = None
     tariff: Optional[int] = None
     order_product_total_price: Optional[int] = None
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    is_deleted: Optional[str] = None
+    is_deleted: str = None
 
     @validator('purchase_order_name')
     def purchase_order_name_str(cls, v):
-        if len(v) <= 1:
+        if len(v) <= 100:
             return v
         raise ValueError('100文字以内で入力して下さい')
 
@@ -42,9 +43,9 @@ class PurchaseOrderCreate(BaseModel):
 
     @validator('commision')
     def commision_int(cls, v):
-        if isinstance(v, float):
+        if isinstance(v, int):
             return v
-        raise TypeError('小数点付きの数字')
+        raise TypeError('数字を入力して下さい')
 
     @validator('order_product_total_price')
     def order_product_total_price_int(cls, v):
