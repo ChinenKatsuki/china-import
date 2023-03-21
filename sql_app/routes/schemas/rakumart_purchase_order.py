@@ -15,7 +15,7 @@ class PurchaseOrderCreate(BaseModel):
     order_product_total_price: Optional[int] = None
     created_at: datetime.datetime
     updated_at: datetime.datetime
-    is_deleted: str = None
+    deleted_at: str = None
 
     @validator('purchase_order_name')
     def purchase_order_name_str(cls, v):
