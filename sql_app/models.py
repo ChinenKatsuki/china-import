@@ -17,20 +17,23 @@ class User(Base):
     created_at = Column(DateTime, default=datetime.datetime.now(), nullable=False, comment='作成日時')
     updated_at = Column(DateTime, default=datetime.datetime.now(), onupdate=datetime.datetime.now(), nullable=False, comment='更新日時')
     deleted_at = Column(DateTime, nullable=True, comment='削除日時')
-    # auth = relationship('Auth', back_populates='auth')
+    auth = relationship('Auth', back_populates='user')
     rakumart_order_all_cost = relationship('RakumartOrderAllCost', back_populates='user')
 
 
-# class Auth(Base):
-#     __tablename__ = 'auth'
-#     __table_args__ = {'comment': '認証情報を管理するトランザクションテーブル'}
+class Auth(Base):
+    __tablename__ = 'auth'
+    __table_args__ = {'comment': '認証情報を管理するトランザクションテーブル'}
 
-#     auth_id = Column(Integer, primary_key=True, comment='authID')
-#     user_id = Column(Integer, ForeignKey(User.user_id), comment='ユーザーID')
-#     passwd = Column(String(255), nullable=False, comment='ログインパスワード sha256を利用する')
-#     token = Column(String(255), nullable=False, comment='トークン')
-#     active_flg = Column(SMALLINT, default=1, nullable=False, comment='有効・無効フラグ')
-#     user = relationship('User', back_populates='auth')
+    auth_id = Column(Integer, primary_key=True, comment='authID')
+    user_id = Column(Integer, ForeignKey(User.user_id), comment='ユーザーID')
+    passwd = Column(String(255), nullable=False, comment='ログインパスワード sha256を利用する')
+    token = Column(String(255), default=1, nullable=False, comment='トークン')
+    active_flg = Column(SMALLINT, default=1, nullable=False, comment='有効・無効フラグ')
+    created_at = Column(DateTime, default=datetime.datetime.now(), nullable=False, comment='作成日時')
+    updated_at = Column(DateTime, default=datetime.datetime.now(), onupdate=datetime.datetime.now(), nullable=False, comment='更新日時')
+    deleted_at = Column(DateTime, nullable=True, comment='削除日時')
+    user = relationship('User', back_populates='auth')
 
 class RakumartOrderAllCost(Base):
     __tablename__ = 'rakumart_order_all_cost'
@@ -65,5 +68,5 @@ class RakumartGoods(Base):
     rakumart_Dgoods_page_url = Column(Text, nullable=False, comment='ラクマート商品ページURL')
     created_at = Column(DateTime, default=datetime.datetime.now(), nullable=False, comment='作成日時')
     updated_at = Column(DateTime, default=datetime.datetime.now(), onupdate=datetime.datetime.now(), nullable=False, comment='更新日時')
-    is_deleted = Column(String(10), default='False', comment='削除フラグ')
+    deleted_at = Column(DateTime, nullable=True, comment='削除日時')
     rakumart_order_all_cost = relationship('RakumartOrderAllCost', back_populates=('rakumart_goods'))
