@@ -14,6 +14,7 @@ class User(Base):
     last_name = Column(String(20), nullable=False, comment='氏名(姓)')
     first_name_kana = Column(String(30), nullable=False, comment='カナ名')
     last_name_kana = Column(String(30), nullable=False, comment='カナ姓')
+    email = Column(String(255), nullable=False, comment='メールアドレス')
     created_at = Column(DateTime, default=datetime.datetime.now(), nullable=False, comment='作成日時')
     updated_at = Column(DateTime, default=datetime.datetime.now(), onupdate=datetime.datetime.now(), nullable=False, comment='更新日時')
     deleted_at = Column(DateTime, nullable=True, comment='削除日時')

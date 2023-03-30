@@ -11,6 +11,7 @@ class UserCreate(BaseModel):
     first_name_kana: str = Field(max_length=30, description='カナ名')
     last_name_kana: str = Field(max_length=30, description='カナ姓')
     passwd: str = Field(max_length=200, description='ログインパスワード')
+    email: str = Field(max_length=200, description='ログインパスワード')
     created_at: datetime.datetime
     updated_at: datetime.datetime
     deleted_at: str = None

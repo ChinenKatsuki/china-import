@@ -15,7 +15,8 @@ def create_user(db: Session, user: UserCreate):
         first_name=user.first_name,
         last_name=user.last_name,
         first_name_kana=user.first_name_kana,
-        last_name_kana=user.last_name_kana
+        last_name_kana=user.last_name_kana,
+        email=user.email
     )
     add_to_database(db, db_user)
     create_auth(db, user=user)
