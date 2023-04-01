@@ -21,3 +21,9 @@ def create_user(db: Session, user: UserCreate):
     add_to_database(db, db_user)
     create_auth(db, user=user)
     return db_user
+
+def get_id_by_email(db: Session, email):
+    return db.query(models.User.user_id).filter(models.User.email == email).scalar()
+
+def get_user_info(db: Session, user_id):
+    return db.query(models.User).filter(models.User.user_id == user_id).first()
