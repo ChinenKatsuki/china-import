@@ -26,4 +26,4 @@ def get_id_by_email(db: Session, email):
     return db.query(models.User.user_id).filter(models.User.email == email).scalar()
 
 def get_user_info(db: Session, user_id):
-    return db.query(models.User).filter(models.User.user_id == user_id).first()
+    return db.query(models.User.user_id, models.User.first_name, models.User.last_name).filter(models.User.user_id == user_id).first()

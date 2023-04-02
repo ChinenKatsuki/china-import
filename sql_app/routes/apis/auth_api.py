@@ -21,10 +21,9 @@ router = APIRouter(
 # async def read_rakumart_purchase_order(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
 #     return crud_rpo.get_purchase_order(db, skip=skip, limit=limit)
 
-@router.post("/login")
+@router.post("/login", response_model=UserLoginedInfo)
 async def login_user(userLoginInfo: UserLogin, db: Session = Depends(get_db)):
     return crud_auth.login(db, userLoginInfo=userLoginInfo)
-# response_model=UserLoginedInfo
 # @router.put("/order/{purchase_order_id}")
 # async def update_rakumart_purchase_order(purchase_order_id: int, request: PurchaseOrderPutRequest, db: Session = Depends(get_db)):
 #     return crud_rpo.update_rakumart_purchase_order(db, purchase_order_id=purchase_order_id, request=request)
