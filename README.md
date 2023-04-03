@@ -11,3 +11,5 @@ streamlit run xxxx.py
 swagger起動
 
 http://127.0.0.1:8000/doc
+
+conda activate pythonenv

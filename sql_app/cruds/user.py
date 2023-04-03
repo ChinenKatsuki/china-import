@@ -7,10 +7,10 @@ sys.path.append(os.path.abspath(".."))
 sys.dont_write_bytecode = True
 import models
 from cruds.auth import create_auth
-from config.database import add_to_database
+from modules.db import add_to_database
 from routes.schemas.user import UserCreate
 
-def create_user(db: Session, user: UserCreate):
+def create_user(user: UserCreate):
     db_user = models.User(
         first_name=user.first_name,
         last_name=user.last_name,
@@ -18,8 +18,8 @@ def create_user(db: Session, user: UserCreate):
         last_name_kana=user.last_name_kana,
         email=user.email
     )
-    add_to_database(db, db_user)
-    create_auth(db, user=user)
+    add_to_database(db_user)
+    create_auth(user=user)
     return db_user
 
 def get_id_by_email(db: Session, email):

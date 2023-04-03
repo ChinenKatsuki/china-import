@@ -13,8 +13,3 @@ engine = create_engine(
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
-
-def add_to_database(db, data):
-    db.add(data)
-    db.commit()
-    db.refresh(data)
