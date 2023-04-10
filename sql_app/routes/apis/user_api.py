@@ -7,8 +7,7 @@ sys.dont_write_bytecode = True
 sys.path.append(os.path.abspath(".."))
 import models
 from config.database import engine
-# from config.db_session import get_db
-import cruds.user as crud_user
+from libs.library.user.user import create_user as library_create_user
 from schemas.user import UserCreate, User
 models.Base.metadata.create_all(bind=engine)
 
@@ -22,8 +21,7 @@ router = APIRouter(
 
 @router.post("/user", response_model=User)
 async def create_user(user: UserCreate):
-    return crud_user.create_user(user=user)
-    # return crud_user.create_user(user=user)
+    return library_create_user(user=user)
 
 # @router.put("/order/{purchase_order_id}")
 # async def update_rakumart_purchase_order(purchase_order_id: int, request: PurchaseOrderPutRequest, db: Session = Depends(get_db)):
